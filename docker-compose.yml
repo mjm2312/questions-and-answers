@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      #POSTGRES_HOST_AUTH_METHOD: trust
+      POSTRES_PASSWORD: postgres
+    
+    volumes:
+      - ./db/create_db.sh:/docker-entrypoint-initdb.d/20-create_db.sh
+      - ./db/schema.sql:/schema.sql
+      - ./db/answers_photos_transformed.csv:/answers_photos_transformed.csv
+      - ./pgdata:/var/lib/postgresql/data
+
+
+    ports:
+      - "5432:5432"
+  server: 
+    image: mjm2312/questions-and-answers
+    depends_on:
+      - db
+    volumes:
+      - .:/src
+    ports:
+      - "3001:3001"
