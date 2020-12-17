@@ -4,3 +4,9 @@ npm-debug.log
 #pgdata
 #db
 #etl
+csv
+csv/*.csv
+csv/*.sh
+db
+etl
+pgdata

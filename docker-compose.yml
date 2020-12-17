@@ -4,8 +4,8 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: postgres
-      #POSTGRES_HOST_AUTH_METHOD: trust
-      POSTRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+      #POSTRES_PASSWORD: postgres is not working without POSTGRES_HOST_AUTH_METHOD
     
     volumes:
       - ./db/create_db.sh:/docker-entrypoint-initdb.d/20-create_db.sh
@@ -17,10 +17,11 @@ services:
     ports:
       - "5432:5432"
   server: 
-    image: mjm2312/questions-and-answers
+    #image: mjm2312/questions-and-answers nodemon may cause error w kubernetes, this image uses nodemon
+    image: mjm2312/questions-and-answers-cmd-node
     depends_on:
       - db
-    volumes:
-      - .:/src
+   # volumes: # suppressing this because getting error with kubernetes.
+   #   - .:/src
     ports:
       - "3001:3001"

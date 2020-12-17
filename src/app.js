@@ -4,6 +4,7 @@ const db = require('./db/index');
 var bodyParser = require('body-parser')
 
 const express = require('express');
+const cors = require('cors');
 
 // Constants
 const PORT = 3001;
@@ -12,9 +13,19 @@ const PORT = 3001;
 // App
 const app = express();
 app.use(bodyParser.json())
-// app.get('/', (req, res) => {
-//   res.send('Hello World');
-// });
+app.use(cors())
+
+const StatsD = require('node-statsd');
+const client = new StatsD({
+	"prefix":"HackReactor_"
+});
+
+app.get('/', (req, res) => {
+  client.increment('root_request_received')
+  res.send('Hello World');
+});
+
+
 
 app.post('/qa/questions/:question_id/answers', (req, res) => {
   var questionId = req.params['question_id'];
@@ -52,7 +63,6 @@ app.post('/qa/questions/', (req, res) => {
 
 
 
-
 app.get('/qa/questions', (req, res) => {
   var productId = req.query["product_id"]
   db.listQuestions(Number(productId), res);
@@ -61,7 +71,7 @@ app.get('/qa/questions', (req, res) => {
 //prob need to pus something else in place of :question_id in route
 app.get('/qa/questions/:question_id/answers', (req, res) => {
   var questionId = req.params["question_id"]
-  //console.log('rquest params', req.params);
+  console.log('rquest params', req.params);
   db.listAnswers(Number(questionId), res);
 
   //res.send(req.query);

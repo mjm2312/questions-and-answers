@@ -38,6 +38,7 @@ CREATE INDEX answers_photos_id on sdc.answers_photos (id);
 CREATE INDEX answers_photos_answer_id on sdc.answers_photos (answer_id);
 
 CREATE INDEX answer_id on sdc.answers (id);
-CREATE INDEX question_id on sdc.answers (question_id);
+-- you already have one called question_id CREATE INDEX question_id on sdc.answers (question_id);
+CREATE INDEX answer_question_id on sdc.answers (question_id)
 
 

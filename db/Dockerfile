@@ -12,7 +12,7 @@
 FROM postgres:11
 
 # Custom initialization scripts
-COPY answers_photos_transformed.csv /answers_photos_transformed.csv
+#COPY answers_photos_transformed.csv /answers_photos_transformed.csv
 COPY ./create_db.sh /docker-entrypoint-initdb.d/20-create_db.sh
 COPY schema.sql /schema.sql
 
