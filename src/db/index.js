@@ -195,7 +195,7 @@ module.exports = {
       resultObj['question'] = questionId;
       resultObj['results'] = resultsArr;
 
-      console.log('this is result Obj', resultObj)
+     // console.log('this is result Obj', resultObj)
       response.send(resultObj);
 
   })
@@ -310,7 +310,7 @@ module.exports = {
       results: resultsValues
     }
 
-    console.log('resultObj', resultObj)
+   // console.log('resultObj', resultObj)
     response.send(resultObj);
 
 

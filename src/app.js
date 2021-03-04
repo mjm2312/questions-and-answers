@@ -16,6 +16,20 @@ app.use(bodyParser.json())
 //   res.send('Hello World');
 // });
 
+//just for testing
+//app.get('/', (req,res) => {
+//  res.send('hi');
+//})
+//
+//;
+
+app.get('/loaderio-d95016cbea96265d0c3eacee35cd4751/', (req, res) => {
+console.log('from loader io');
+  	res.status(200).send('loaderio-d95016cbea96265d0c3eacee35cd4751');
+	//res.status(200).sendFile('/home/ubuntu/questions-and-answers/loaderio-key.txt');
+});
+
+
 app.post('/qa/questions/:question_id/answers', (req, res) => {
   var questionId = req.params['question_id'];
   var body = req.body['body'];

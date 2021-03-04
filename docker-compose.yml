@@ -4,8 +4,8 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: postgres
-      #POSTGRES_HOST_AUTH_METHOD: trust
-      POSTRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+      # POSTRES_PASSWORD: postgres
     
     volumes:
       - ./db/create_db.sh:/docker-entrypoint-initdb.d/20-create_db.sh
