@@ -9,8 +9,17 @@ var config = {
     
     //host: 'host.docker.internal', //will not work outside of docker desktop.map
     //host: 'postgres://db:5432',
-    host: 'db',
-    port: 5432, 
+    
+    //next two lines work in docker-compose. suppressing to test k8s.
+    //host: 'db',
+    //port: 5432,
+
+    //seems to work for K8s. providing mikikube host and NodePort port
+    //the cluster public ip
+    host: '192.168.64.2',
+    port: 30224,
+
+
     max: 10, // max number of clients in the pool
     idleTimeoutMillis: 30000
     
@@ -18,6 +27,10 @@ var config = {
 const pool = new Pool(config);
 pool.on('error', function (err, client) {
     console.error('idle client error', err.message, err.stack);
+});
+
+pool.on('connect', function (err, client) {
+  console.log('connection successful');
 });
 
 module.exports = { 

@@ -1,0 +1,34 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres-initdb-pv-claim-march-04
+  labels:
+    app: db
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi 
+      #1Mi
+
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: postgres-initdb-pv-volume-march-04
+  labels:
+    type: local
+    app: db
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi 
+    #1Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    #path: "/path/to/initdb/sql/scripts"
+    path: "/Users/mattmartin/HackReactor/questions-and-answers/db-in-minikube"
+

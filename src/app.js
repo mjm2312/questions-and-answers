@@ -22,7 +22,7 @@ const client = new StatsD({
 
 app.get('/', (req, res) => {
   client.increment('root_request_received')
-  res.send('Hello World');
+  res.send('Hello World!!!');
 });
 
 
