@@ -4,6 +4,10 @@ metadata:
   name: postgres-initdb-pv-claim-march-04
   labels:
     app: db
+  # issue mounting to var/lib/psotgres/data https://github.com/docker-library/postgres/issues/116
+  #annotations:
+    #volume.beta.kubernetes.io/mount-options: "dir_mode=0777,file_mode=0777,uid=1000,gid=1000"
+
 spec:
   storageClassName: manual
   accessModes:
@@ -29,6 +33,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    #path: "/path/to/initdb/sql/scripts"
     path: "/Users/mattmartin/HackReactor/questions-and-answers/db-in-minikube"
+    #path: "data/Users/mattmartin/HackReactor/questions-and-answers/"
+
 
