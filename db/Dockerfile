@@ -10,11 +10,13 @@
 # RUN psql -U postgres postgres
 
 FROM postgres:11
+RUN mkdir db
 
+ENV POSTGRES_HOST_AUTH_METHOD=trust
 # Custom initialization scripts
 #COPY answers_photos_transformed.csv /answers_photos_transformed.csv
 COPY ./create_db.sh /docker-entrypoint-initdb.d/20-create_db.sh
-COPY schema.sql /schema.sql
+COPY schema.sql db/schema.sql
 
 #COPY data.sql /data.sql
 
