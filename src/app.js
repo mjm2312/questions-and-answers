@@ -5,6 +5,7 @@ var bodyParser = require('body-parser')
 
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 // Constants
 const PORT = 3001;
@@ -23,6 +24,11 @@ const client = new StatsD({
 app.get('/', (req, res) => {
   client.increment('root_request_received')
   res.send('Hello World!!!');
+});
+
+app.get('/loaderio-f55246bdb5e98d3177aaf74a477d0e65.txt', (req, res) => {
+  console.log('hi by loader io');
+  res.sendFile(path.join(__dirname, '/conf/token.txt'));
 });
 
 
