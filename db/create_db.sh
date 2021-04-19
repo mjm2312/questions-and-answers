@@ -47,7 +47,7 @@ done
 #psql -d matttest -a -U postgres -f /schema.sql
 
 echo "1.02: looks like schema.sql lives in db/"
-psql -d matttest -a -U postgres -f ./db/schema.sql
+psql -d matttest -a -U postgres -f ../db/schema.sql
 
 
 
