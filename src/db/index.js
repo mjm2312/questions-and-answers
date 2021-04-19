@@ -3,7 +3,8 @@ const { Pool } = require('pg');
 
 var config = {
     user: 'postgres', 
-    database: 'matttest', 
+    //database: 'matttest', 
+    database: 'postgres',
     password: 'postgres', 
     //host: 'localhost',
     
@@ -16,8 +17,12 @@ var config = {
 
     //seems to work for K8s. providing mikikube host and NodePort port
     //the cluster public ip
-    host: '192.168.64.2',
-    port: 30224,
+    //host: '192.168.64.2',
+    //port: 30224, //this worked for minikube
+
+    //for AWS:
+    host: '54.202.54.201',
+    port: '32706',
 
 
     max: 10, // max number of clients in the pool
