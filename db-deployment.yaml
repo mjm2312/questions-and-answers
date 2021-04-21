@@ -30,104 +30,31 @@ spec:
           value: trust
         - name: POSTGRES_USER
           value: postgres
-        # need to define PGDATA env var because not using the default /var/lib/postgresql/data, but a subpath under it.
-        #- name: PGDATA 
-         # value: /var/lib/postgresql/data
-            #/data
-          #/var/lib/postgresql/data
-        #image: postgres
-        image: mjm2312/db-0322
-        #command: ["/bin/sh","-c"]
-        #args: 
-        #- for entry in "$search_dir" do echo "$entry" done;
-        # - echo "`pwd`";
-        # - echo $USER;
+        image: mjm2312/db-0419-2
         imagePullPolicy: ""
         name: db
         ports:
         - containerPort: 5432
         resources: {}
-        # suppressing while testing hostPath
-        
-        securityContext:
-          runAsUser: 0
-       #  runAsGroup: 1000
-         #fsGroup: 1000
         volumeMounts:
           #test
-          #- mountPath: /
-          - mountPath: /var/lib/postgresql/data/pgdata
-            subPath: db/test-0304-schema
-            name: postgres-pv-claim-medium
-            #name: postgres-initdb
-          
-          - mountPath: /docker-entrypoint-initdb.d
-            subPath: db/test-0304
-            #subPath: 20-create_db.sh this creates a directory with this name in minikube
-            name: postgres-pv-claim-medium
-            #name: postgres-initdb
-          #end test
-
-          #test to persist data
-          #- mountPath: /db
-           # subPath:  pgdata-local
-           # name: postgres-initdb
-
-
-        # - mountPath: /docker-entrypoint-initdb.d/20-create_db.sh
-        #   name: db-hostpath0
-        # - mountPath: /schema.sql
-        #   name: db-hostpath1
-        # - mountPath: /answers_photos_transformed.csv
-        #   name: db-hostpath2
-        # - mountPath: /var/lib/postgresql/data
-        #   name: db-hostpath3
-
-
-      # initContainers:
-      #   - name: psql-data-permission-fix
-      #     image: busybox
-      #     command: ["/bin/sh","-c"]
-      #     args: 
-      #      # - echo ININITCONTAINER starting; 
-      #       - ls -la; echo user is "$(id -u)"; chmod -R 777 /data && chown -R 999 /data && echo INITCONTAINER starting;
-  
-      #     # "/bin/chmod","-R","777", "/data"]
-      #     #command: ["/bin/echo", "testttt"]
-      #     #chown -R 999 /data; 
-      #     volumeMounts:
-      #     - name: postgres-initdb
-      #       mountPath: /data
-      #       subPath: pgdata-minikubeTest
+          #minikube mounts
+          #- mountPath: /var/lib/postgresql/data/pgdata
+          #  subPath: db/test-0304-schema
+          #  name: postgres-pv-claim-medium
+          #- mountPath: /docker-entrypoint-initdb.d
+          #  subPath: db/test-0304
+          #  subPath: 20-create_db.sh this creates a directory with this name in minikube
+          #  name: postgres-pv-claim-medium
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
       #test
       - name: postgres-pv-claim-medium
-      #- name: postgres-initdb
         persistentVolumeClaim: 
-          #claimName: postgres-initdb-pv-claim-march-04
           claimName: postgres-pv-claim-medium
-      #end test
-      # names hostpath0+ are files, may only work on directories.
-      - hostPath:
-          path: /data/db
-          #path: /Users/mattmartin/HackReactor/questions-and-answers/db
-        name: db-hostpath
-      # - hostPath:
-      #     path: /Users/mattmartin/HackReactor/questions-and-answers/db/create_db.sh
-      #   name: db-hostpath0
-      # - hostPath:
-      #     path: /Users/mattmartin/HackReactor/questions-and-answers/db/schema.sql
-      #   name: db-hostpath1
-      # - hostPath:
-      #     path: /Users/mattmartin/HackReactor/questions-and-answers/db/answers_photos_transformed.csv
-      #   name: db-hostpath2
-      - hostPath:
-          path: /Users/mattmartin/HackReactor/questions-and-answers/pgdata
-        name: db-hostpath3
-      #securityContext:
-      #  runAsUser: 1000
-      #  runAsGroup: 1000
-      #  fsGroup: 1000
+      #minikube mountpoint
+      #- hostPath:
+      #    path: /data/db
+      #    name: db-hostpath
 status: {}

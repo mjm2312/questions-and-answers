@@ -24,7 +24,7 @@ spec:
         io.kompose.service: server
     spec:
       containers:
-      - image: mjm2312/march03 #mjm2312/questions-and-answers-cmd-node-8
+      - image: mjm2312/0420-api-5
         imagePullPolicy: ""
         name: server
         ports:
