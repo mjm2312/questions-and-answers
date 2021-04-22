@@ -1,5 +1,6 @@
 // 'use strict';
-const db = require('./db/index');
+require("dotenv").config();
+const db = require('./db/models');
 //install body parser
 var bodyParser = require('body-parser')
 
@@ -16,6 +17,8 @@ const app = express();
 app.use(bodyParser.json())
 app.use(cors())
 
+const config = require('./config');
+
 const StatsD = require('node-statsd');
 const client = new StatsD({
 	"prefix":"HackReactor_"
@@ -25,20 +28,18 @@ app.get('/', (req, res) => {
   client.increment('root_request_received')
   res.send('Hello World!!!');
 });
-
-app.get('/loaderio-f55246bdb5e98d3177aaf74a477d0e65.txt', (req, res) => {
+         
+app.get('/loaderio-f018a49ad3f496cd28662c73c7051824', (req, res) => {
   console.log('hi by loader io');
-  res.sendFile(path.join(__dirname, '/conf/token.txt'));
+  res.sendFile(path.join(__dirname, '/secrets/token.txt'));
 });
 
-
-
 app.post('/qa/questions/:question_id/answers', (req, res) => {
-  var questionId = req.params['question_id'];
-  var body = req.body['body'];
-  var name = req.body['name'];
-  var email = req.body['email'];
-  var photos = req.body['photos'];
+  const questionId = req.params['question_id'];
+  const body = req.body['body'];
+  const name = req.body['name'];
+  const email = req.body['email'];
+  const photos = req.body['photos'];
 
 
   //db.listQuestions(Number(questionId));
@@ -51,10 +52,10 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
 });
 
 app.post('/qa/questions/', (req, res) => {
-  var body = req.body['body'];
-  var name = req.body['name'];
-  var email = req.body['email'];
-  var productId = req.body['product_id'];
+  const body = req.body['body'];
+  const name = req.body['name'];
+  const email = req.body['email'];
+  const productId = req.body['product_id'];
 
   //
   //db.listQuestions(Number(questionId));
@@ -70,13 +71,13 @@ app.post('/qa/questions/', (req, res) => {
 
 
 app.get('/qa/questions', (req, res) => {
-  var productId = req.query["product_id"]
+  const productId = req.query["product_id"]
   db.listQuestions(Number(productId), res);
 });
 
 //prob need to pus something else in place of :question_id in route
 app.get('/qa/questions/:question_id/answers', (req, res) => {
-  var questionId = req.params["question_id"]
+  const questionId = req.params["question_id"]
   console.log('rquest params', req.params);
   db.listAnswers(Number(questionId), res);
 
@@ -85,6 +86,6 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
 });
 
 
-app.listen(PORT);
-console.log(`Running on ${PORT}`);
+app.listen(config.apiPort);
+console.log(`Running on ${config.apiPort}`);
 //console.log(db.query());
