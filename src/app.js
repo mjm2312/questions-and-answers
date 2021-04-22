@@ -35,6 +35,7 @@ app.get('/loaderio-f018a49ad3f496cd28662c73c7051824', (req, res) => {
 });
 
 app.post('/qa/questions/:question_id/answers', (req, res) => {
+
   const questionId = req.params['question_id'];
   const body = req.body['body'];
   const name = req.body['name'];
@@ -69,7 +70,6 @@ app.post('/qa/questions/', (req, res) => {
 });
 
 
-
 app.get('/qa/questions', (req, res) => {
   const productId = req.query["product_id"]
   db.listQuestions(Number(productId), res);
@@ -83,6 +83,11 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
 
   //res.send(req.query);
   //res.send('hi')
+});
+
+app.use((req, res) => {
+  //Invalid request
+  res.send('Invalid request').status(404);
 });
 
 
