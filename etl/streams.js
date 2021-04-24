@@ -6,11 +6,13 @@ const {TransformAnswersPhotos, csvStringifierAnswersPhotos} = require('./transfo
 const {TransformAnswers, csvStringifierAnswers} = require('./transformers/answers')
 const {TransformQuestions, csvStringifierQuestions} = require('./transformers/questions')
 
+const readPath = 'Users/<user>/Downloads/'
+const writePath = 'Users/<user>/Projects/questions-and-answers/csv/'
 
 
 let streamer = (inputFile, outputFile, transformClass, csvStringifier) => {
-  let readStream = fs.createReadStream(`/Users/mattmartin/Downloads/${inputFile}`);
-  let writeStream = fs.createWriteStream(`/Users/mattmartin/HackReactor/questions-and-answers/csv/${outputFile}`);
+  let readStream = fs.createReadStream(`${readPath}${inputFile}`);
+  let writeStream = fs.createWriteStream(`${writePath}${outputFile}`);
 
   const transformer = new transformClass({ writableObjectMode: true });
 
