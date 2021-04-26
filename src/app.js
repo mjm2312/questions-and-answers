@@ -28,9 +28,9 @@ app.get('/', (req, res) => {
   client.increment('root_request_received')
   res.send('Q&A API');
 });
-         
+
+//loader-io authentication for testing
 app.get('/loaderio-f018a49ad3f496cd28662c73c7051824', (req, res) => {
-  console.log('hi by loader io');
   res.sendFile(path.join(__dirname, '/secrets/token.txt'));
 });
 
