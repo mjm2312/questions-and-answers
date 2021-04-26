@@ -1,27 +1,25 @@
 version: "3.7"
 services:
   db:
-    image: postgres
+    image: mjm2312/db:latest 
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_HOST_AUTH_METHOD: trust
-      #POSTRES_PASSWORD: postgres is not working without POSTGRES_HOST_AUTH_METHOD
-    
+      POSTGRES_USER: ${PG_USER}
+      #POSTGRES_PASSWORD: ${PG_PASSWORD}
+      #PG_PASSWORD: ${PG_PASSWORD}
     volumes:
-      - ./db/create_db.sh:/docker-entrypoint-initdb.d/20-create_db.sh
-      - ./db/schema.sql:/schema.sql
-      - ./db/answers_photos_transformed.csv:/answers_photos_transformed.csv
       - ./pgdata:/var/lib/postgresql/data
-
-
     ports:
-      - "5432:5432"
+      - "${PG_PORT}:${PG_PORT}"
   server: 
-    #image: mjm2312/questions-and-answers nodemon may cause error w kubernetes, this image uses nodemon
-    image: mjm2312/questions-and-answers-cmd-node
+    environment: 
+      PG_HOST: ${PG_HOST}
+      PG_PORT: ${PG_PORT}
+      PG_DB: ${PG_DB}
+      PG_USER: ${PG_USER}
+      API_HOST: ${API_HOST}
+      API_PORT: ${API_PORT} 
+    image: mjm2312/api:latest
     depends_on:
       - db
-   # volumes: # suppressing this because getting error with kubernetes.
-   #   - .:/src
     ports:
-      - "3001:3001"
+      - "${API_PORT}:${API_PORT}"

@@ -3,7 +3,6 @@
 This project contains a RESTful api for the questions and answers portion of an ecommerce site. The Express api comprises 4 routes (documentation at bottom of file) which interface with a postgres database. Below, you'll find two sets of instructions: one to run the service locally with docker-compose, the other to deploy on AWS with Kubernetes. 
 
 
-
 ### local set up
 
 1. Install Docker Engine and Docker Compose
@@ -54,6 +53,7 @@ steps 1-9 taken from Shiraz Hazrat's tutorial https://www.youtube.com/watch?v=vp
     - to create server pods, run `kubectl apply -f server-deployment.yaml`
     - to create the db pod, run `kubectl apply -f db-deployment.yaml`
 16. Test endpoints using the Master node's IPv4 and the port where Kubernetes exposed the server service (step 12)
+
 
 ### questions & answers api documentation
 
