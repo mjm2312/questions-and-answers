@@ -26,7 +26,7 @@ const client = new StatsD({
 
 app.get('/', (req, res) => {
   client.increment('root_request_received')
-  res.send('Hello World!!!');
+  res.send('Q&A API');
 });
          
 app.get('/loaderio-f018a49ad3f496cd28662c73c7051824', (req, res) => {
