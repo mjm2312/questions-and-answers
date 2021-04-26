@@ -31,28 +31,14 @@ class TransformQuestions extends Transform {
       }
     }
 
-    // //filters out all non-number characters
-    // let onlyNumbers = chunk.default_price.replace(/\D/g, "");
-    // chunk.default_price = onlyNumbers;
-    // //uses our csvStringifier to turn our chunk into a csv string
-
-//skip if no id, question_id, product id;
     if (chunk.id === undefined || chunk.product_id === undefined || chunk.body === undefined) {
       next();
     }
 
     chunk = csvStringifierQuestions.stringifyRecords([chunk]);
-    //console.log('after', chunk)
-
-
-
-
-
     this.push(chunk);
     next();
   }
-
-
 }
 
 module.exports = {TransformQuestions, csvStringifierQuestions}

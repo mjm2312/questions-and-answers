@@ -26,18 +26,10 @@ class TransformAnswersPhotos extends Transform {
       }
     }
 
-    // //filters out all non-number characters
-    // let onlyNumbers = chunk.default_price.replace(/\D/g, "");
-    // chunk.default_price = onlyNumbers;
-    // //uses our csvStringifier to turn our chunk into a csv string
     chunk = csvStringifierAnswersPhotos.stringifyRecords([chunk]);
-    //console.log('after', chunk)
-
     this.push(chunk);
     next();
   }
-
-
 }
 
 module.exports = {TransformAnswersPhotos, csvStringifierAnswersPhotos}

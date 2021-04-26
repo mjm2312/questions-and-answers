@@ -20,8 +20,6 @@ class TransformAnswers extends Transform {
   }
 
   _transform(chunk, encoding, next) {
-    //console.log('before', chunk)
-    
     for (let key in chunk) {
       //trims whitespace
       let trimKey = key.trim();
@@ -31,30 +29,15 @@ class TransformAnswers extends Transform {
       }
     }
 
-    // //filters out all non-number characters
-    // let onlyNumbers = chunk.default_price.replace(/\D/g, "");
-    // chunk.default_price = onlyNumbers;
-    // //uses our csvStringifier to turn our chunk into a csv string
-    
     //skip if no id, question_id
     if (chunk.id === undefined || chunk.question_id === undefined) {
       next();
     }
-    
-    
-    
+
     chunk = csvStringifierAnswers.stringifyRecords([chunk]);
-    //console.log('after', chunk)
-
-
-
-
-
     this.push(chunk);
     next();
   }
-
-
 }
 
 module.exports = {TransformAnswers, csvStringifierAnswers}
