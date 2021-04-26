@@ -7,7 +7,7 @@ const params = require('../config');
 var config = {
     user: params.pgUser, 
     database: params.pgDB,
-    password: params.pgPassword, 
+    //password: params.pgPassword, 
     host: params.pgHost,
     port: params.pgPort,
     max: 10, // max number of clients in the pool
